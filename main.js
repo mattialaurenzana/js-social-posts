@@ -1,5 +1,5 @@
 // Milestone 1
-// Creiamo il nostro array di oggetti che rappresentano ciascun post.
+// Creiamo il nostro likesArray di oggetti che rappresentano ciascun post.
 // Ogni post dovrà avere le informazioni necessarie per stampare la relativa card:
 // id del post,
 // numero progressivo da 1 a n nome autore,
@@ -15,11 +15,11 @@
 
 // Milestone 3
 // Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+// Salviamo in un secondo likesArray gli id dei post ai quali abbiamo messo il like.
 
 
 
-//array di oggetti
+//likesArray di oggetti
 //ogni oggetto rappresenta un post della pagina
 
 const posts = [
@@ -78,6 +78,7 @@ const posts = [
 
 const container = document.getElementById('container');
 
+
 for(let i=0; i < posts.length; i++){
 
     const post = posts[i];
@@ -101,7 +102,7 @@ for(let i=0; i < posts.length; i++){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="${post.id}">
+                <a class="like-button  js-like-button"  data-postid="${post.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -113,4 +114,21 @@ for(let i=0; i < posts.length; i++){
     </div>            
 </div>`
 
+}
+
+const likesButton = document.querySelectorAll(".like-button");
+
+const likesCounter = document.querySelectorAll('.js-likes-counter');
+
+const likedPosts = []; //definisco un array per salvatre gli id dei post a cui sono stati messi like
+
+for(let i=0; i < likesButton.length; i++){
+    
+        likesButton[i].addEventListener('click',function(){
+            likesButton[i].style.color = 'blue';
+            posts[i].likesNumber ++;
+            likedPosts.push(posts[i].id); //pusho l'id relativo al post a cui è stato messo like dentro l'array predisposto
+            likesCounter[i].innerText = `${posts[i].likesNumber}`;
+        },{once : true});
+    
 }

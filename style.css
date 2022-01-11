@@ -16,6 +16,10 @@ h1 {
     color: white;
 }
 
+a:hover{
+    cursor: pointer;
+}
+
 .main-title {
     text-align: center;
     margin: 24px 0;
