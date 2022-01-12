@@ -20,6 +20,17 @@ a:hover{
     cursor: pointer;
 }
 
+
+.logo{
+    border: 1px solid black;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    background-color: lightgrey;
+    font-weight: bold;
+}
+
 .main-title {
     text-align: center;
     margin: 24px 0;

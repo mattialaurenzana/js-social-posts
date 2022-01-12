@@ -26,8 +26,8 @@ const posts = [
 
     {
         id : 1,
-        authorName : 'Jack Frost',
-        profile : 'img/jack.jpg',
+        authorName : 'Jack',
+        authorSurname : 'Frost',
         date : '03-21-2003',
         text : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         image : 'img/city.jpg',
@@ -36,7 +36,8 @@ const posts = [
 
     {
         id : 2,
-        authorName : 'Katia Miller',
+        authorName : 'Katia',
+        authorSurname : 'Miller',
         profile : 'img/katia.jpg',
         date : '06-11-2009',
         text : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
@@ -46,7 +47,8 @@ const posts = [
 
     {
         id : 3,
-        authorName : 'Sara Johnson',
+        authorName : 'Sara',
+        authorSurname : 'Johnson',
         profile : 'img/sara.jpg',
         date : '01-4-2017',
         text : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
@@ -56,7 +58,8 @@ const posts = [
 
     {
         id : 4,
-        authorName : 'Kyle Walker',
+        authorName : 'Kyle',
+        authorSurname : 'Walker',
         profile : 'img/kyle.jpg',
         date : '09-27-2012',
         text : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
@@ -65,7 +68,8 @@ const posts = [
 
     {
         id : 5,
-        authorName : 'Tommy Shelby',
+        authorName : 'Tommy',
+        authorSurname : 'Shelby',
         profile : 'img/tommy.jpg',
         date : '02-16-2015',
         text : 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
@@ -90,7 +94,7 @@ for(let i=0; i < posts.length; i++){
                 <img class="profile-pic" src="${post.profile}" alt="${post.authorName}">                    
             </div>
             <div class="post-meta__data">
-                <div class="post-meta__author">${post.authorName}</div>
+                <div class="post-meta__author">${post.authorName} ${post.authorSurname}</div>
                 <div class="post-meta__time">${post.date}</div>
             </div>                    
         </div>
@@ -102,7 +106,7 @@ for(let i=0; i < posts.length; i++){
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button"  data-postid="${post.id}">
+                <a class="like-button  js-like-button" href="#/" data-postid="${post.id}">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -122,13 +126,31 @@ const likesCounter = document.querySelectorAll('.js-likes-counter');
 
 const likedPosts = []; //definisco un array per salvatre gli id dei post a cui sono stati messi like
 
-for(let i=0; i < likesButton.length; i++){
     
-        likesButton[i].addEventListener('click',function(){
-            likesButton[i].style.color = 'blue';
-            posts[i].likesNumber ++;
-            likedPosts.push(posts[i].id); //pusho l'id relativo al post a cui è stato messo like dentro l'array predisposto
-            likesCounter[i].innerText = `${posts[i].likesNumber}`;
-        },{once : true});
-    
+    for(let i=0; i < likesButton.length; i++){
+        
+            likesButton[i].addEventListener('click',function(e){
+                e.preventDefault();  //evito lo scrolling perchè una volta scatenato l'evento quello di default non viene preso in considerazione
+                this.classList.add('like-button--liked');
+                posts[i].likesNumber ++;
+                likedPosts.push(posts[i].id); //pusho l'id relativo al post a cui è stato messo like dentro l'array predisposto
+                likesCounter[i].innerText = `${posts[i].likesNumber}`;
+            },{once : true});
+        
+    }
+
+const profileHtml = document.querySelectorAll('.profile-pic');
+const icon = document.querySelectorAll('.post-meta__icon');
+let newString = '';
+
+for(let i=0; i < posts.length; i++){
+    if(profileHtml[i].src === 'file:///C:/Users/matti/OneDrive/Desktop/classe-50/js-social-posts/undefined'){
+        profileHtml[i].remove();  //rimuovo l'elemento dal documento
+        newString = posts[i].authorName.charAt(0) + posts[i].authorSurname.charAt(0);;
+        icon[i].innerText = newString;
+        icon[i].classList.add('profile-pic');
+        icon[i].classList.add('logo');
+    }
 }
+
+
